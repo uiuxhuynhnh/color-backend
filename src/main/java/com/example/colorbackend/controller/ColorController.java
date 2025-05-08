@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/colors")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class ColorController {
 
     private final ColorSchemeRepository repository;
@@ -24,9 +24,7 @@ public class ColorController {
         String aiReply = colorAiService.getColorSuggestion(req.prompt);
 
         try {
-            // Parse JSON trả về từ HuggingFace
             JsonNode root = objectMapper.readTree(aiReply);
-
             String content = root.isArray() ? root.get(0).asText() : root.toString();
             JsonNode colors = objectMapper.readTree(content);
 
